@@ -1,0 +1,9 @@
+def camelcase(s):
+    # Write your code here
+    n = 1
+
+    for c in s:
+        if c.isupper():
+            n += 1
+
+    return n
