@@ -1,0 +1,12 @@
+def anagram(s):
+    # Write your code here
+    if len(s) % 2 == 1 :
+        return -1
+    else :
+        changes = 0
+        i = 0    
+        while i < 26 :
+            changes += abs(s[:len(s) // 2].count(chr(i + 97)) - s[len(s) // 2:].count(chr(i + 97)))
+            i += 1
+        
+        return changes // 2
