@@ -1,0 +1,10 @@
+def circularArrayRotation(a, k, queries):
+    # Write your code here
+    index:int 
+    result = []
+    
+    for query in queries :
+        index = (query + n - k) % n
+        result.append(a[index])
+        
+    return result
