@@ -1,0 +1,14 @@
+def minimumDistances(a):
+    # Write your code here
+    last = {}
+    minimum = float('inf')
+
+    for i in range(len(a)):
+        if a[i] in last:
+            minimum = min(minimum, i - last[a[i]])
+        last[a[i]] = i
+
+    if minimum == float('inf'):
+        return -1
+
+    return minimum
