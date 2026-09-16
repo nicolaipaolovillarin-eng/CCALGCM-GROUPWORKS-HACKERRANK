@@ -1,0 +1,10 @@
+def miniMaxSum(arr):
+    # Write your code here
+    min:int = 0
+    max:int = 0
+    arr.sort()
+    
+    min = sum(arr) - arr[4]
+    max = sum(arr) - arr [0]
+    
+    print(f"{min} {max}")
