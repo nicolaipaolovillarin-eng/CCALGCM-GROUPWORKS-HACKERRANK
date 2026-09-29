@@ -15,7 +15,8 @@ jobs : array-like - list of size (n,2) indicating the jobs. Each element is
 def searchIndex(l,n,jobs):
     low = 0
     high = n-1
-    
+
+    #standard binary search for indexes
     while low < high:
         mid = (low + high) // 2
         
@@ -35,6 +36,8 @@ def solve(x,n,g,y,jobs):
         return -1
         
     jobs.sort()
+
+    #high and low of the skill level
     low = 1
     high = jobs[-1][0]
     
@@ -52,7 +55,8 @@ def solve(x,n,g,y,jobs):
             low = mid + 1
         else:
             high = mid
-    
+
+    #solution - initial skill level
     return low - x
     
             
