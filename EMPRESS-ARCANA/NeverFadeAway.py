@@ -9,33 +9,51 @@ y    : int        - V's pay threshold for dangerous jobs
 jobs : array-like - list of size (n,2) indicating the jobs. Each element is 
                     comprised of two-integers d (the danger level of the job) 
                     and p (the payout of the job)
-                    
-step 1: check the array if the conditions meet to x and/or y
-step 2: if so, then subtract P to g, continue until g is 0, if it hasn't reach 0 then,
-step 2a: what is the min increase in x to meet the condition 
 """
-def solve(x,n,g,y,jobs):
-    # compute and return answer here
-    #check if there is enough payout to reach g
-    if sum(jobs[1]) < g:
-        return -1
-        
-    jobs.sort()
+
+#searches for the lowest index that has a D > l
+def searchIndex(l,n,jobs):
     low = 0
-    high = n - 1
+    high = n-1
     
-    #gets the lowest index where D <= x
     while low < high:
         mid = (low + high) // 2
         
-        if jobs[mid][0] <= x:
-            low = mid
+        if jobs[mid][0] >= l:
+            high = mid
         else:
-            high = mid - 1
+            low = mid + 1
+            
+    return low
     
-    #check if its enough to get the goal (tentative)
-    if jobs[mid][0] <= x:
-        if sum(jobs[:mid+1][1]):
+
+def solve(x,n,g,y,jobs):
+    # compute and return answer here
+    
+    #edge case
+    if sum(j[1] for j in jobs) < g:
+        return -1
+        
+    jobs.sort()
+    low = 1
+    high = jobs[-1][0]
+    
+    #binary search to find the minimum skill required to achieve the goal
+    while low < high:
+        mid = (low + high) // 2
+        
+        index = searchIndex(mid,n,jobs)
+        
+        #calculates the total payout at this skill level
+        total = sum(j[1] for j in jobs[:index]) + sum(j[1] for j in jobs[index:] 
+            if (j[0] == mid and j[1] >= y) or (j[0] > mid and j[1] >= y**2))
+            
+        if total < g:
+            low = mid + 1
+        else:
+            high = mid
+    
+    return low - x
     
             
     
