@@ -32,7 +32,7 @@ def solve(x,n,g,y,jobs):
     # compute and return answer here     
     jobs.sort()
     low = x
-    high = 10**9 + 1 #change
+    high = jobs[-1][0] + 1 #change
     
     #binary search to find the minimum skill required to achieve the goal
     while low < high:
