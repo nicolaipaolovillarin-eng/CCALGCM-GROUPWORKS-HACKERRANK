@@ -29,17 +29,10 @@ def searchIndex(l,n,jobs):
     
 
 def solve(x,n,g,y,jobs):
-    # compute and return answer here
-    
-    #edge case
-    if sum(j[1] for j in jobs) < g:
-        return -1
-        
+    # compute and return answer here     
     jobs.sort()
-
-    #high and low of the skill level
-    low = 1
-    high = jobs[-1][0]
+    low = x
+    high = 10**9 + 1 #change
     
     #binary search to find the minimum skill required to achieve the goal
     while low < high:
@@ -55,9 +48,17 @@ def solve(x,n,g,y,jobs):
             low = mid + 1
         else:
             high = mid
-
-    #solution - initial skill level
-    return low - x
+    
+    #final check (for certain cases like no answer was found)
+    index = searchIndex(low,n,jobs)
+    total = sum(j[1] for j in jobs[:index]) + sum(j[1] for j in jobs[index:] 
+        if (j[0] == low and j[1] >= y) or (j[0] > low and j[1] >= y**2))
+    
+    
+    if total >= g:
+        return low - x
+    else:
+        return -1
     
             
     
